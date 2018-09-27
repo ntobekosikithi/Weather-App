@@ -1,0 +1,33 @@
+PODS:
+  - Alamofire (5.0.0.beta.1)
+  - iProgressHUD (1.1.1)
+  - SwiftyDrop (4.1.0)
+
+DEPENDENCIES:
+  - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, branch `alamofire5-core-rewrite`)
+  - iProgressHUD (~> 1.1.1)
+  - SwiftyDrop (~> 4.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - iProgressHUD
+    - SwiftyDrop
+
+EXTERNAL SOURCES:
+  Alamofire:
+    :branch: alamofire5-core-rewrite
+    :git: https://github.com/Alamofire/Alamofire.git
+
+CHECKOUT OPTIONS:
+  Alamofire:
+    :commit: 8913c383c5bb77c74a89c0597a04726d2a4a777c
+    :git: https://github.com/Alamofire/Alamofire.git
+
+SPEC CHECKSUMS:
+  Alamofire: eafeeb206da2148045e57a5dc3c6a4acc65b9eb2
+  iProgressHUD: caa742128253c97f2c2e1ec59e2bbe6cf689df6a
+  SwiftyDrop: bdcaa52e6127790f2e382df4fd56c32da8b8cc57
+
+PODFILE CHECKSUM: c880e0b07dbdf9619eaba0ede624ddee2f54a7f3
+
+COCOAPODS: 1.5.3
