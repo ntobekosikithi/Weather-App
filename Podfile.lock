@@ -1,13 +1,23 @@
 PODS:
   - Alamofire (5.0.0.beta.1)
+  - AppCenter (1.9.0):
+    - AppCenter/Analytics (= 1.9.0)
+    - AppCenter/Crashes (= 1.9.0)
+  - AppCenter/Analytics (1.9.0):
+    - AppCenter/Core
+  - AppCenter/Core (1.9.0)
+  - AppCenter/Crashes (1.9.0):
+    - AppCenter/Core
   - iProgressHUD (1.1.1)
 
 DEPENDENCIES:
   - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, branch `alamofire5-core-rewrite`)
+  - AppCenter
   - iProgressHUD (~> 1.1.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AppCenter
     - iProgressHUD
 
 EXTERNAL SOURCES:
@@ -22,8 +32,9 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: eafeeb206da2148045e57a5dc3c6a4acc65b9eb2
+  AppCenter: 3cf7b9387549e9703dab068793e404013e8c0cc1
   iProgressHUD: caa742128253c97f2c2e1ec59e2bbe6cf689df6a
 
-PODFILE CHECKSUM: b3d76718fee6aa288c7267b051be0ce8f93e1ece
+PODFILE CHECKSUM: 1de73480c8dae3cb74162db458e334e9bdaa4059
 
 COCOAPODS: 1.5.3

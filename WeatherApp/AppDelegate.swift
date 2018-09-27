@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Connectivity.startMonitoringNetwork()
+        MSAppCenter.start("32ff21f2-476f-40d9-96a8-dd4b3a2e7fb8", withServices:[
+            MSAnalytics.self,
+            MSCrashes.self
+        ])
         return true
     }
 

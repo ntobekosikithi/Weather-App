@@ -640,16 +640,18 @@
 			baseConfigurationReference = EABC73680A8E264A9F193EA7 /* Pods-WeatherApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J6JBXWQ47V;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ECA Internet (PTY) LTD";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = XG8766C4Q9;
 				INFOPLIST_FILE = WeatherApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = za.co.ntobekosikithi.WeatherApp;
+				PRODUCT_BUNDLE_IDENTIFIER = co.immedia.minutes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Fabrik/minutes;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -660,16 +662,18 @@
 			baseConfigurationReference = A13C7988B29BAC60DB42CD23 /* Pods-WeatherApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J6JBXWQ47V;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ECA Internet (PTY) LTD";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = XG8766C4Q9;
 				INFOPLIST_FILE = WeatherApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = za.co.ntobekosikithi.WeatherApp;
+				PRODUCT_BUNDLE_IDENTIFIER = co.immedia.minutes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Fabrik/minutes;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

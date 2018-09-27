@@ -9,6 +9,7 @@ target 'WeatherApp' do
   #Using Alamofire5
   pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git', :branch => 'alamofire5-core-rewrite'
   pod 'iProgressHUD', '~> 1.1.1'
+  pod 'AppCenter'
   
   target 'WeatherAppTests' do
     inherit! :search_paths
