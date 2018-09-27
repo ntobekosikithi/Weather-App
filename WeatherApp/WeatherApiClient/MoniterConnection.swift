@@ -22,10 +22,14 @@ class Connectivity {
             if network?.isReachable ?? false {
                 
                 switch status {
-                case .notReachable: break
-                case .unknown: break
-                case .reachable(.ethernetOrWiFi): break
-                case .reachable(.wwan): break
+                case .notReachable:
+                    print("alert the user")
+                case .unknown:
+                    print("alert the user about slow connection")
+                case .reachable(.ethernetOrWiFi):
+                    print("Start network services")
+                case .reachable(.wwan):
+                    print("Start network services")
                 }
             }
             
