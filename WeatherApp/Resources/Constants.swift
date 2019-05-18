@@ -13,6 +13,7 @@ struct constants {
     static let baseURL = "https://api.openweathermap.org"
     static let api_key = "615c0b5cdb6822c4fcec3e0c800469c7"
     static let units = "metric"
+    static let errorLocation = "Please go to settings and allow the app to access your location to be able to use WeatherApp app's features"
 }
 
 enum HTTPHeaderField: String {

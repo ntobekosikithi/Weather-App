@@ -80,7 +80,7 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
         if status == CLAuthorizationStatus.denied
         {
             self.view.dismissProgress()
-            presentAlertWithTitle(title: "WeatherApp", message: "Please go to settings and allow the app to access your location to be able to use WeatherApp app's features", options: "Settings") { (option)  in
+            presentAlertWithTitle(title: "WeatherApp", message: constants.errorLocation, options: "Settings") { (option)  in
                 switch(option) {
                 case 0:
                     guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
