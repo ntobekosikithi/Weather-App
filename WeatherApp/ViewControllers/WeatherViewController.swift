@@ -18,16 +18,15 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
     @IBOutlet weak var lblweatherDescription: UILabel!
     @IBOutlet weak var lbldegrees: UILabel!
     var locationManager: CLLocationManager!
-    var identifier:String = "forecastCell"
-    var forecastHeaderViewIdentifier:String = "forecastHeaderViewTableViewCell"
     var administrativeArea: String!
     var isFetchingData:Bool!
-    var forecastWeather:forecast?
-    var currentWeather:weather?
+    var forecastWeather = forecast()
+    var currentWeather = weather()
+    var WeatherClient = WeatherAPIClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.addProgressIndicator()
+        self.showActivityIndicatory()
         self.setUpView()
         self.setupLocation()
     }
@@ -44,36 +43,35 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
         let lon = userLocation.coordinate.longitude
         if !self.isFetchingData {
             self.isFetchingData = true
-            WeatherAPIClient.currentWeather(latitude: String(lat), longitude: String(lon), completion: { weather in
-                switch weather {
-                case .success(let weather):
-                    self.currentWeather = weather
-                    self.lbldegrees.text = weather.main.current.toºcelsius()
-                    self.lblweatherDescription.text = weather.weather[0].description.toWeatherDescription().uppercased()
+            WeatherClient.current(weatherData: .getCurrentWeather, lat: String(lat), lon: String(lon)) { results in
+                switch results {
+                case .success(let weatherResults):
+                    guard let weatherResult = weatherResults else { return }
+                    self.currentWeather = weatherResult
+                    self.lbldegrees.text = self.currentWeather?.main.current.toºcelsius()
+                    self.lblweatherDescription.text = self.currentWeather?.weather[0].description.toWeatherDescription().uppercased()
                     DispatchQueue.main.async {
-                       self.backgroundImage.image = UIImage(named: weather.weather[0].description.toWeatherDescription().lowercased())
-                        self.view.backgroundColor = UIColor(hexString: weather.weather[0].description.color().lowercased())
-                        self.tableView.backgroundColor = UIColor(hexString: weather.weather[0].description.color().lowercased())
+                        self.backgroundImage.image = UIImage(named: (self.currentWeather?.weather[0].description.toWeatherDescription().lowercased())!)
+                        self.view.backgroundColor = UIColor(hexString: (self.currentWeather?.weather[0].description.color().lowercased())!)
+                        self.tableView.backgroundColor = UIColor(hexString: (self.currentWeather?.weather[0].description.color().lowercased())!)
                     }
-                    self.view.dismissProgress()
                     self.tableView.reloadData()
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    print("the error \(error)")
                 }
-            });
-            
+            }
             // Get the 5 day weather forecast
-            WeatherAPIClient.forecast(latitude: String(lat), longitude: String(lon), completion: { results in
+            WeatherClient.forecast(weatherData: .getForecast, lat: String(lat), lon: String(lon)) { results in
                 self.isFetchingData = false
                 switch results {
                 case .success(let forecast):
                     self.forecastWeather = forecast
-                    self.view.dismissProgress()
+                    self.hideActivityIndicatory()
                     self.tableView.reloadData()
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-            })
+            }
         }
     }
     
@@ -82,7 +80,7 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
         if status == CLAuthorizationStatus.denied
         {
             self.view.dismissProgress()
-            presentAlertWithTitle(title: "WeatherApp", message: "Please go to settings and allow the app to access your location", options: "Settings") { (option)  in
+            presentAlertWithTitle(title: "WeatherApp", message: "Please go to settings and allow the app to access your location to be able to use WeatherApp app's features", options: "Settings") { (option)  in
                 switch(option) {
                 case 0:
                     guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
@@ -119,8 +117,8 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
     }
     
     func setUpView(){
-        let nib = UINib(nibName: forecastHeaderViewIdentifier, bundle: nil)
-        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: forecastHeaderViewIdentifier)
+        self.tableView.registerHeader(forecastHeaderView.self)
+        self.tableView.register(forecastTableViewCell.self)
         self.tableView.separatorStyle = .none
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -148,7 +146,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: forecastTableViewCell = (tableView.dequeueReusableCell(withIdentifier: identifier) as? forecastTableViewCell)!
+        let cell = self.tableView.dequeueReusableCell(forIndexPath: indexPath) as forecastTableViewCell
         let forecast = self.forecastWeather!.list[indexPath.row] as weather
         let date = forecast.date?.toFullDate()
         let currentDate = Date()
@@ -165,7 +163,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: forecastHeaderViewIdentifier) as! forecastHeaderViewTableViewCell
+        let header = self.tableView.dequeueReusableHeader() as forecastHeaderView
         let description = self.currentWeather?.weather[0].description
         header.lblMinTemp.text = self.currentWeather?.main.min.toºcelsius()
         header.lblCurrentTemp.text = self.currentWeather?.main.current.toºcelsius()

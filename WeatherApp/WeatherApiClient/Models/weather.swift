@@ -11,6 +11,10 @@ struct weather : Codable{
     let weather: [description]
     let main: temperature
     let date: String?
+    
+    init?() {
+        return nil
+    }
 }
 
 extension weather {

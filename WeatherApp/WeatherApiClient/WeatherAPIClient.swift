@@ -6,22 +6,38 @@
 //  Copyright © 2018 ntobekosikithi. All rights reserved.
 //
 
-import Alamofire
+import Foundation
+class WeatherAPIClient: APIClient {
+    
+    let session: URLSession
+    
+    init(configuration: URLSessionConfiguration) {
+        self.session = URLSession(configuration: configuration)
+    }
+    
+    convenience init() {
+        self.init(configuration: .default)
+    }
 
-class WeatherAPIClient {
-    @discardableResult
-    private static func performRequest<T:Decodable>(route:APIRouter, decoder: JSONDecoder = JSONDecoder(), completion:@escaping (Result<T>)->Void) -> DataRequest {
-        return Alamofire.request(route)
-            .responseJSONDecodable (decoder: decoder){ (response: DataResponse<T>) in
-                completion(response.result)
-        }
+    func current(weatherData: weatherRouter, lat:String, lon:String, completion: @escaping (Result<weather?, APIError>) -> Void) {
+        let endpoint = weatherData
+        let params = parameters.setParametes(lat: lat, lon: lon)
+        let request = endpoint.requestWithParams(parameters: params!)
+
+        fetch(with: request, decode: { json -> weather? in
+            guard let weatherResult = json as? weather else { return  nil }
+            return weatherResult
+        }, completion: completion)
     }
-    
-    static func currentWeather(latitude: String, longitude: String, completion:@escaping (Result<weather>)->Void) {
-        performRequest(route: APIRouter.currentWeather(lat: latitude, lon: longitude),completion: completion)
-    }
-    
-    static func forecast(latitude: String, longitude: String, completion:@escaping (Result<forecast>)->Void) {
-        performRequest(route: APIRouter.forecast(lat: latitude, lon: longitude), completion: completion)
+
+    func forecast(weatherData: weatherRouter, lat:String, lon:String, completion: @escaping (Result<forecast?, APIError>) -> Void) {
+        let endpoint = weatherData
+        let params = parameters.setParametes(lat: lat, lon: lon)
+        let request = endpoint.requestWithParams(parameters: params!)
+
+        fetch(with: request, decode: { json -> forecast? in
+            guard let forecastResult = json as? forecast else { return  nil }
+            return forecastResult
+        }, completion: completion)
     }
 }

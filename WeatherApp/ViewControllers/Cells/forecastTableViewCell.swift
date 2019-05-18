@@ -8,7 +8,7 @@
 
 import UIKit
 
-class forecastTableViewCell: UITableViewCell {
+class forecastTableViewCell: UITableViewCell, NibView, ReusableView  {
 
     @IBOutlet weak var lblDegrees: UILabel!
     @IBOutlet weak var forecastIcon: UIImageView!

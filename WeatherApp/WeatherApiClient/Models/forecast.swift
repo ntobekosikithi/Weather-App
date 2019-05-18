@@ -10,4 +10,8 @@ import Foundation
 
 struct forecast : Codable{
     let list: [weather]
+    
+    init?() {
+        return nil
+    }
 }

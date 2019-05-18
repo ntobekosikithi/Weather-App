@@ -6,10 +6,8 @@ target 'WeatherApp' do
   use_frameworks!
 
   # Pods for WeatherApp
-  #Using Alamofire5
-  pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git', :branch => 'alamofire5-core-rewrite'
+  pod 'Alamofire', '~> 4.7'
   pod 'iProgressHUD', '~> 1.1.1'
-  pod 'AppCenter'
   
   target 'WeatherAppTests' do
     inherit! :search_paths

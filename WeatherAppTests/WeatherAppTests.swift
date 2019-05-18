@@ -27,10 +27,11 @@ class WeatherAppTests: XCTestCase {
         let testExpectationForecast = expectation(description: "Forecast weather")
 
         let viewController = WeatherViewController()
+        let WeatherClient = WeatherAPIClient()
         viewController.setupLocation()
         let location = viewController.getLocation()
         XCTAssertNotNil(location)
-        WeatherAPIClient.currentWeather(latitude:String(location.latitude) , longitude: String(location.longitude), completion: { results in
+        WeatherClient.current(weatherData: .getCurrentWeather, lat:String(location.latitude) , lon: String(location.longitude), completion: { results in
             switch results {
             case .success(let weather):
                 XCTAssertNotNil(weather)
@@ -39,8 +40,8 @@ class WeatherAppTests: XCTestCase {
                 XCTFail()
             }
         })
-        
-        WeatherAPIClient.forecast(latitude: String(location.latitude), longitude: String(location.longitude), completion: { results in
+
+        WeatherClient.forecast(weatherData: .getForecast, lat: String(location.latitude), lon: String(location.longitude), completion: { results in
             switch results {
             case .success(let forecast):
                 XCTAssertNotNil(forecast)

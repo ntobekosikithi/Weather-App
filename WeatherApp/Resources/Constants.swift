@@ -10,15 +10,13 @@
 import Foundation
 
 struct constants {
-    static let baseURL = "https://api.openweathermap.org/data/2.5/"
+    static let baseURL = "https://api.openweathermap.org"
     static let api_key = "615c0b5cdb6822c4fcec3e0c800469c7"
     static let units = "metric"
 }
 
 enum HTTPHeaderField: String {
     case contentType = "Content-Type"
-    case acceptType = "Accept"
-    case acceptEncoding = "Accept-Encoding"
 }
 
 enum ContentType: String {

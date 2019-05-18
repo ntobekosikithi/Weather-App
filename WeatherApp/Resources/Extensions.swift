@@ -83,6 +83,53 @@ extension UIViewController {
         }
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    func showActivityIndicatory() {
+        let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+        actInd.frame = CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0);
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle =
+            UIActivityIndicatorViewStyle.whiteLarge
+        actInd.tag = 111
+        self.view.addSubview(actInd)
+        actInd.startAnimating()
+    }
+    
+    func hideActivityIndicatory() {
+        if let actInd = self.view.viewWithTag(111) {
+            actInd.removeFromSuperview()
+        }
+    }
+}
+
+//UITableView extensions
+extension UITableView {
+    func register<T: UITableViewCell & ReusableView & NibView>(_: T.Type) {
+        let nib = UINib(nibName: T.nibName, bundle: nil)
+        register(nib, forCellReuseIdentifier: T.reuseIdentifier)
+    }
+    
+    func registerHeader<T: UITableViewHeaderFooterView & ReusableView & NibView>(_: T.Type){
+        let nib = UINib(nibName: T.nibName, bundle: nil)
+        register(nib, forHeaderFooterViewReuseIdentifier: T.reuseIdentifier)
+    }
+    
+    func dequeueReusableCell<T: UITableViewCell & ReusableView>(forIndexPath indexPath: IndexPath) -> T {
+        guard let cell = dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as? T else {
+            fatalError("Unable to dequeue cell with identifier: \(T.reuseIdentifier)")
+        }
+        
+        return cell
+    }
+    
+    func dequeueReusableHeader<T: UITableViewHeaderFooterView & ReusableView>() -> T {
+        guard let cell = dequeueReusableHeaderFooterView(withIdentifier: T.reuseIdentifier) as? T else {
+            fatalError("Unable to dequeue header with identifier: \(T.reuseIdentifier)")
+        }
+        
+        return cell
+    }
 }
 
 //String extensions
