@@ -9,7 +9,6 @@
 import UIKit
 import Foundation
 import CoreLocation
-import iProgressHUD
 
 class WeatherViewController: UIViewController,CLLocationManagerDelegate {
     
@@ -79,7 +78,7 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
         let status: CLAuthorizationStatus = CLLocationManager.authorizationStatus()
         if status == CLAuthorizationStatus.denied
         {
-            self.view.dismissProgress()
+            self.hideActivityIndicatory()
             presentAlertWithTitle(title: "WeatherApp", message: constants.errorLocation, options: "Settings") { (option)  in
                 switch(option) {
                 case 0:
@@ -106,16 +105,7 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
     }
-    
-    func addProgressIndicator(){
-        let iprogress: iProgressHUD = iProgressHUD()
-        iprogress.attachProgress(toViews: self.view)
-        iprogress.isShowModal = true
-        view.updateCaption(text: "")
-        self.view.updateIndicator(style:.lineScale)
-        self.view.showProgress()
-    }
-    
+
     func setUpView(){
         self.tableView.registerHeader(forecastHeaderView.self)
         self.tableView.register(forecastTableViewCell.self)
@@ -127,7 +117,7 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
             self.isFetchingData = false
         }else{
             self.isFetchingData = true
-            self.view.dismissProgress()
+            self.hideActivityIndicatory()
         }
     }
     

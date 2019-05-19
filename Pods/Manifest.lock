@@ -1,20 +1,16 @@
 PODS:
   - Alamofire (4.8.2)
-  - iProgressHUD (1.1.1)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
-  - iProgressHUD (~> 1.1.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - iProgressHUD
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  iProgressHUD: caa742128253c97f2c2e1ec59e2bbe6cf689df6a
 
-PODFILE CHECKSUM: 77e79d293062ac59981d8726c4dde4161e342af8
+PODFILE CHECKSUM: 1ea13eeb588c8cc536d128d086a074c5fe008f9f
 
 COCOAPODS: 1.6.1

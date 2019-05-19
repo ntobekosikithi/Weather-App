@@ -7,7 +7,6 @@ target 'WeatherApp' do
 
   # Pods for WeatherApp
   pod 'Alamofire', '~> 4.7'
-  pod 'iProgressHUD', '~> 1.1.1'
   
   target 'WeatherAppTests' do
     inherit! :search_paths
